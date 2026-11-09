@@ -1,13 +1,22 @@
 use std::io::{self, Write};
 
-fn km2m(km: f64) -> f64 {
+fn km2mtr(km: f64) -> f64 {
     let m: f64 = km * 1000.00;
     return m;
 }
 
-fn m2km(m: f64) -> f64 {
+fn mtr2km(m: f64) -> f64 {
     let km: f64 = m / 1000.00;
     return km;
+}
+
+fn mtr2mile(mtr: f64) -> f64 {
+    let mile: f64 = mtr / 1609.344;
+    return mile;
+}
+fn mile2mtr(mile: f64) -> f64 {
+    let mtr: f64 = mile * 1609.344;
+    return mtr;
 }
 
 fn main() {
@@ -48,22 +57,65 @@ fn main() {
                 let from: &str = &tokens[0].to_lowercase();
                 let to: &str = &tokens[2].to_lowercase();
 
-                // Slices the from token and to token into character and checks if each value is a string or not , If not the code should display warning
+                // Slices the from token and to token into character and checks if each value is a string or not !
+                //  If not the code should display warning
                 if !from.chars().all(|char| char.is_alphabetic())
                     || !to.chars().all(|char| char.is_alphabetic())
                 {
-                    println!("Units must contain letters only (e.g. km, m, c, f)");
+                    println!("Units must contain letters only (e.g. km, mtr, c, f)");
                     continue;
                 }
 
                 match (from, to) {
-                    ("km", "m") => {
-                        let result = km2m(value);
-                        println!("{value} km = {result:.2} m");
+                    ("km", "mtr") => {
+                        let result = km2mtr(value);
+                        if result != 0.0 && result.abs() < 0.01 {
+                            println!("{value} {from} = {result:.6} {to}");
+                        } else {
+                            println!("{value} {from} = {result:.2} {to}");
+                        }
                     }
-                    ("m", "km") => {
-                        let result = m2km(value);
-                        println!("{value} m = {result:.2} km");
+                    ("mtr", "km") => {
+                        let result = mtr2km(value);
+                        if result != 0.0 && result.abs() < 0.01 {
+                            println!("{value} {from} = {result:.6} {to}");
+                        } else {
+                            println!("{value} {from} = {result:.2} {to}");
+                        }
+                    }
+                    ("mtr", "mile") => {
+                        let result = mtr2mile(value);
+                        if result != 0.0 && result.abs() < 0.01 {
+                            println!("{value} {from} = {result:.6} {to}");
+                        } else {
+                            println!("{value} {from} = {result:.2} {to}");
+                        }
+                    }
+                    ("km", "mile") => {
+                        let mtr = km2mtr(value);
+                        let result = mtr2mile(mtr);
+                        if result != 0.0 && result.abs() < 0.01 {
+                            println!("{value} {from} = {result:.6} {to}");
+                        } else {
+                            println!("{value} {from} = {result:.2} {to}");
+                        }
+                    }
+                    ("mile", "km") => {
+                        let mtr = mile2mtr(value);
+                        let result = mtr2km(mtr);
+                        if result != 0.0 && result.abs() < 0.01 {
+                            println!("{value} {from} = {result:.6} {to}");
+                        } else {
+                            println!("{value} {from} = {result:.2} {to}");
+                        }
+                    }
+                    ("mile", "mtr") => {
+                        let result = mile2mtr(value);
+                        if result != 0.0 && result.abs() < 0.01 {
+                            println!("{value} {from} = {result:.6} {to}");
+                        } else {
+                            println!("{value} {from} = {result:.2} {to}");
+                        }
                     }
                     _ => println!("Conversion not supported yet"),
                 }
