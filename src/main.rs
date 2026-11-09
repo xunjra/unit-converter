@@ -47,14 +47,55 @@ fn lb2kg(lb: f64) -> f64 {
     return kg;
 }
 
+fn print_help() {
+    println!(
+        "
+=========== UNIT CONVERTER HELP ===========
+
+FORMAT
+  <from_unit> <value> <to_unit>
+  Example:  km 5 mile      cel 100 fah      lb 150 kg
+
+COMMANDS
+  help    Show this message
+  quit    Exit the program
+
+SUPPORTED UNITS
+  Length
+    mtr   - meter
+    km    - kilometer
+    mile  - mile
+
+  Temperature
+    cel   - degrees Celsius
+    fah   - degrees Fahrenheit
+    kel   - Kelvin
+
+  Weight
+    kg    - kilogram
+    lb    - pound
+
+RULES
+  - Units and commands are not case sensitive (KM = km)
+  - Use the unit names exactly as listed above
+  - Units can only be converted within the same group
+    (km to mile works, km to kg does not)
+
+============================================
+"
+    );
+}
+
 fn main() {
     println!("Welcome to Unit Converter");
+    println!("Type 'help' to see the available commands");
     loop {
         print!(">> ");
         if let Err(e) = io::stdout().flush() {
-            eprint!("Error flusing stdout: {e}");
+            eprint!("Error flushing stdout: {e}");
             break;
         }
+
         let mut input = String::new();
         match io::stdin().read_line(&mut input) {
             Ok(0) => {
@@ -66,11 +107,16 @@ fn main() {
                     continue;
                 }
                 if tokens[0].to_lowercase() == "quit" {
-                    println!("Goodbye !");
                     break;
                 }
+
+                if tokens[0].to_lowercase() == "help" {
+                    print_help();
+                    continue;
+                }
+
                 if tokens.len() != 3 {
-                    println!("Invalid input format");
+                    println!("Invalid input format. Expected: <from_unit> <value> <to_unit>");
                     continue; // (Error code E0308 via return approach) Wasted 20 min of time !
                 }
                 // Input format : initial_unit, value, conversion_unit
@@ -90,7 +136,7 @@ fn main() {
                 if !from.chars().all(|char| char.is_alphabetic())
                     || !to.chars().all(|char| char.is_alphabetic())
                 {
-                    println!("Units must contain letters only (e.g. km, mtr, c, f)");
+                    println!("Units must contain only letters (e.g. km, mtr, cel, fah)");
                     continue;
                 }
 
@@ -263,7 +309,7 @@ fn main() {
                         }
                     }
 
-                    _ => println!("Conversion not supported yet"),
+                    _ => println!("Conversion not supported"),
                 }
 
                 // if tokens[0].to_lowercase() == "km" && tokens[2].to_lowercase() == "m" {
