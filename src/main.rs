@@ -11,20 +11,20 @@ fn main() {
         let mut input = String::new();
         match io::stdin().read_line(&mut input) {
             Ok(0) => {
-                print!("Goodbye!");
                 break;
             }
             Ok(_) => {
-                let trimmed = input.trim();
-                if trimmed == "quit" {
-                    break;
-                }
-                if trimmed.is_empty() {
+                let tokens: Vec<&str> = input.split_whitespace().collect();
+                if tokens.is_empty() {
                     continue;
                 }
-                match evaulate(trimmed) {
-                    Ok(result) => println!("{result}"),
-                    Err(error) => println!("{error}"),
+                if tokens[0] == "quit" {
+                    println!("Goodbye !");
+                    break;
+                }
+                if tokens.len() != 3 {
+                    println!("Invalid input format");
+                    continue; // (Error code E0308 via return approach) Wasted 20 min of time !
                 }
             }
             Err(e) => {
@@ -32,13 +32,5 @@ fn main() {
                 break;
             }
         }
-    }
-}
-
-fn evaulate(input: &str) -> Result<String, String> {
-    if input == "ping" {
-        Ok("pong".to_string())
-    } else {
-        Err(format!("Unknown Command: `{input}`"))
     }
 }
