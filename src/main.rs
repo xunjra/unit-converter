@@ -1,5 +1,10 @@
 use std::io::{self, Write};
 
+fn km2m(km: f64) -> f64 {
+    let m: f64 = km * 1000.00;
+    return m;
+}
+
 fn main() {
     println!("Welcome to Unit Converter");
     loop {
@@ -34,7 +39,11 @@ fn main() {
                         continue;
                     }
                 };
-                println!("{:?}", tokens);
+                // (Error code E0308 while printing the value) Wasted another 15 min of time trust I have recorded my suffering!
+                if tokens[0] == "km" && tokens[2] == "m" {
+                    let result = km2m(value);
+                    println!("{value} km = {result:.2} m");
+                }
             }
             Err(e) => {
                 println!("Error reading input : {e}");
