@@ -16,12 +16,14 @@ fn mtr2mile(mtr: f64) -> f64 {
     let mile: f64 = mtr / 1609.344;
     return mile;
 }
+
 fn mile2mtr(mile: f64) -> f64 {
     let mtr: f64 = mile * 1609.344;
     return mtr;
 }
 
 // FUNCTION FOR TEMPERATURE CONVERSION
+// ( Haven't implemented the kelvin function since it is just a 1 line thing )
 
 fn c2f(c: f64) -> f64 {
     let f: f64 = c * 9.0 / 5.0 + 32.0;
@@ -31,6 +33,18 @@ fn c2f(c: f64) -> f64 {
 fn f2c(f: f64) -> f64 {
     let c: f64 = (f - 32.0) * 5.0 / 9.0;
     return c;
+}
+
+// FUNCTIONS FOR WEIGHT CONVERSION
+
+fn kg2lb(kg: f64) -> f64 {
+    let lb: f64 = kg / 0.45359237;
+    return lb;
+}
+
+fn lb2kg(lb: f64) -> f64 {
+    let kg: f64 = lb * 0.45359237;
+    return kg;
 }
 
 fn main() {
@@ -219,6 +233,33 @@ fn main() {
                             println!("{value} {from} = {result:.2} {to}");
                         } else {
                             println!("Temperature cannot go below absolute zero");
+                        }
+                    }
+                    ("kg", "lb") => {
+                        if value >= 0.0 {
+                            let result = kg2lb(value);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
+                        } else {
+                            println!("Weight cannot be negative");
+                            continue;
+                        }
+                    }
+
+                    ("lb", "kg") => {
+                        if value >= 0.0 {
+                            let result = lb2kg(value);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
+                        } else {
+                            println!("Weight cannot be negative");
+                            continue;
                         }
                     }
 
