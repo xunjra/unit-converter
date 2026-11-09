@@ -26,6 +26,15 @@ fn main() {
                     println!("Invalid input format");
                     continue; // (Error code E0308 via return approach) Wasted 20 min of time !
                 }
+                // Input format : initial_unit, value, conversion_unit
+                let value = match tokens[1].parse::<f64>() {
+                    Ok(n) => n,
+                    Err(_) => {
+                        println!("'{}' is not a valid number", tokens[1]);
+                        continue;
+                    }
+                };
+                println!("{:?}", tokens);
             }
             Err(e) => {
                 println!("Error reading input : {e}");
