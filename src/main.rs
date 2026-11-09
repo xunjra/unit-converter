@@ -1,5 +1,7 @@
 use std::io::{self, Write};
 
+// FUNCTIONS FOR LENGTH CONVERSION
+
 fn km2mtr(km: f64) -> f64 {
     let m: f64 = km * 1000.00;
     return m;
@@ -17,6 +19,18 @@ fn mtr2mile(mtr: f64) -> f64 {
 fn mile2mtr(mile: f64) -> f64 {
     let mtr: f64 = mile * 1609.344;
     return mtr;
+}
+
+// FUNCTION FOR TEMPERATURE CONVERSION
+
+fn c2f(c: f64) -> f64 {
+    let f: f64 = c * 9.0 / 5.0 + 32.0;
+    return f;
+}
+
+fn f2c(f: f64) -> f64 {
+    let c: f64 = (f - 32.0) * 5.0 / 9.0;
+    return c;
 }
 
 fn main() {
@@ -37,7 +51,7 @@ fn main() {
                 if tokens.is_empty() {
                     continue;
                 }
-                if tokens[0] == "quit" {
+                if tokens[0].to_lowercase() == "quit" {
                     println!("Goodbye !");
                     break;
                 }
@@ -68,55 +82,146 @@ fn main() {
 
                 match (from, to) {
                     ("km", "mtr") => {
-                        let result = km2mtr(value);
-                        if result != 0.0 && result.abs() < 0.01 {
-                            println!("{value} {from} = {result:.6} {to}");
+                        if value >= 0.0 {
+                            let result = km2mtr(value);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
                         } else {
-                            println!("{value} {from} = {result:.2} {to}");
+                            println!("Distance cannot be negative");
+                            continue;
                         }
                     }
+
                     ("mtr", "km") => {
-                        let result = mtr2km(value);
-                        if result != 0.0 && result.abs() < 0.01 {
-                            println!("{value} {from} = {result:.6} {to}");
+                        if value >= 0.0 {
+                            let result = mtr2km(value);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
                         } else {
-                            println!("{value} {from} = {result:.2} {to}");
+                            println!("Distance cannot be negative");
+                            continue;
                         }
                     }
+
                     ("mtr", "mile") => {
-                        let result = mtr2mile(value);
-                        if result != 0.0 && result.abs() < 0.01 {
-                            println!("{value} {from} = {result:.6} {to}");
+                        if value >= 0.0 {
+                            let result = mtr2mile(value);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
                         } else {
-                            println!("{value} {from} = {result:.2} {to}");
+                            println!("Distance cannot be negative");
+                            continue;
                         }
                     }
+
                     ("km", "mile") => {
-                        let mtr = km2mtr(value);
-                        let result = mtr2mile(mtr);
-                        if result != 0.0 && result.abs() < 0.01 {
-                            println!("{value} {from} = {result:.6} {to}");
+                        if value >= 0.0 {
+                            let mtr = km2mtr(value);
+                            let result = mtr2mile(mtr);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
                         } else {
-                            println!("{value} {from} = {result:.2} {to}");
+                            println!("Distance cannot be negative");
+                            continue;
                         }
                     }
+
                     ("mile", "km") => {
-                        let mtr = mile2mtr(value);
-                        let result = mtr2km(mtr);
-                        if result != 0.0 && result.abs() < 0.01 {
-                            println!("{value} {from} = {result:.6} {to}");
+                        if value >= 0.0 {
+                            let mtr = mile2mtr(value);
+                            let result = mtr2km(mtr);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
                         } else {
-                            println!("{value} {from} = {result:.2} {to}");
+                            println!("Distance cannot be negative");
+                            continue;
                         }
                     }
+
                     ("mile", "mtr") => {
-                        let result = mile2mtr(value);
-                        if result != 0.0 && result.abs() < 0.01 {
-                            println!("{value} {from} = {result:.6} {to}");
+                        if value >= 0.0 {
+                            let result = mile2mtr(value);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
                         } else {
-                            println!("{value} {from} = {result:.2} {to}");
+                            println!("Distance cannot be negative");
+                            continue;
                         }
                     }
+                    ("cel", "fah") => {
+                        if value >= -273.15 {
+                            let result = c2f(value);
+                            println!("{value} {from} = {result:.2} {to}");
+                        } else {
+                            println!("Temperature cannot go below absolute zero");
+                        }
+                    }
+
+                    ("fah", "cel") => {
+                        if value >= -459.67 {
+                            let result = f2c(value);
+                            println!("{value} {from} = {result:.2} {to}");
+                        } else {
+                            println!("Temperature cannot go below absolute zero");
+                        }
+                    }
+
+                    ("cel", "kel") => {
+                        if value >= -273.15 {
+                            let result = value + 273.15;
+                            println!("{value} {from} = {result:.2} {to}");
+                        } else {
+                            println!("Temperature cannot go below absolute zero");
+                        }
+                    }
+
+                    ("kel", "cel") => {
+                        if value >= 0.0 {
+                            let result = value - 273.15;
+                            println!("{value} {from} = {result:.2} {to}");
+                        } else {
+                            println!("Temperature cannot go below absolute zero");
+                        }
+                    }
+
+                    ("fah", "kel") => {
+                        if value >= -459.67 {
+                            let cel = f2c(value);
+                            let result = cel + 273.15;
+                            println!("{value} {from} = {result:.2} {to}");
+                        } else {
+                            println!("Temperature cannot go below absolute zero");
+                        }
+                    }
+
+                    ("kel", "fah") => {
+                        if value >= 0.0 {
+                            let cel = value - 273.15;
+                            let result = c2f(cel);
+                            println!("{value} {from} = {result:.2} {to}");
+                        } else {
+                            println!("Temperature cannot go below absolute zero");
+                        }
+                    }
+
                     _ => println!("Conversion not supported yet"),
                 }
 
