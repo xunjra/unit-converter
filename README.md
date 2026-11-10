@@ -21,12 +21,50 @@ A fast, lightweight, offline unit converter built with Rust without the use of a
 - Case insensitive inputs handeling
 - REPL Loop
 
+## Performance
+
+Measured with `/usr/bin/time -v` on a release build (`cargo build --release`), run under WSL2. The kernel records peak resident set size (RSS) for the process, so the numbers cover only this program, not the terminal.
+
+| Scenario | Peak RSS | Wall time |
+|---|---|---|
+| 3 conversions, then `quit` | 2,320 KB (~2.3 MB) | instant |
+| 1,000,000 conversions | 2,368 KB (~2.3 MB) | 0.96 s |
+| One 1 MB input line | _TBD_ | _TBD_ |
+
+**Highlights**
+
+- **~2.3 MB peak memory**, about 10x under a 25 MB budget.
+- **Flat memory use:** a million conversions added only ~48 KB over the 3-conversion run, so nothing accumulates between inputs.
+- **~1 million conversions per second**, including parsing, validation, and output.
+- **Standard library only**, with zero external dependencies.
+
+**Notes**
+
+- Peak RSS includes the binary and shared system libraries, so it slightly overstates the program's own heap use.
+- The only input-dependent allocation is the line buffer, since `read_line` stores the full line.
+
+**Reproduce**
+
+```bash
+cargo build --release
+
+# 3 conversions
+printf "km 5 mile\ncel 100 fah\nquit\n" | /usr/bin/time -v ./target/release/unit-converter > /dev/null
+
+# 1,000,000 conversions
+yes "km 5 mile" | head -n 1000000 | /usr/bin/time -v ./target/release/unit-converter 2>&1 >/dev/null | grep -E "Maximum resident|Elapsed"
+```
+
+Look for `Maximum resident set size (kbytes)` in the output.
+
 ## Contributing
 
 Contributions are welcome!
 1. Fork the repository.
 2. Make your changes.
 3. Submit a pull request.
+
+
 
 ### License
 

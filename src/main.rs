@@ -79,6 +79,7 @@ FORMAT
 COMMANDS
   help    Show this message
   quit    Exit the program
+  exit Exit the program
 
 SUPPORTED UNITS
   Length
@@ -131,7 +132,7 @@ fn main() {
                 if tokens.is_empty() {
                     continue;
                 }
-                if tokens[0].to_lowercase() == "quit" {
+                if tokens[0].to_lowercase() == "quit" || tokens[0].to_lowercase() == "exit" {
                     break;
                 }
 
