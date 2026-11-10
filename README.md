@@ -7,10 +7,14 @@ A fast, lightweight, offline unit converter built with Rust without the use of a
 - ZED (IDE)
 
 ### Screenshots
+<img width="1115" height="628" alt="image" src="https://github.com/user-attachments/assets/6ec441ec-d561-4069-b990-1aa9fe6bff65" />
+<img width="1115" height="628" alt="image" src="https://github.com/user-attachments/assets/2f51139f-fd3d-49bf-ba82-10c67f149b73" />
+<img width="1115" height="628" alt="image" src="https://github.com/user-attachments/assets/77b73571-61f4-4dd8-85de-e589c5fb4727" />
+
 
 
 ### Why was it built ? 
-=> The project was built as a first project to start out to journey of rust since watching turtorials is not ENOUGH. The project helped me to learn the basic syntax and overall working with rust. On the project I have implemented REPL Loop, Handled Exceptions, Case=insensitive inputs,EOF handling, Validation with token count, Units check, Implemented physical limits exceptions such as absolute zero or negative length and weight, Seperated conversion logic into individual function & used an HUB based approach which allows to make just 2N functions for conversion instead of N^2 functions for same number of units to convert.
+The project was built as a first project to start out to journey of rust since watching turtorials is not ENOUGH. The project helped me to learn the basic syntax and overall working with rust. On the project I have implemented REPL Loop, Handled Exceptions, Case=insensitive inputs,EOF handling, Validation with token count, Units check, Implemented physical limits exceptions such as absolute zero or negative length and weight, Seperated conversion logic into individual function & used an HUB based approach which allows to make just 2N functions for conversion instead of N^2 functions for same number of units to convert.
 
 ### Features
 
