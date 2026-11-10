@@ -47,6 +47,26 @@ fn lb2kg(lb: f64) -> f64 {
     return kg;
 }
 
+// FUNCTION FOR GALLON CONVERSION
+fn l2ml(l: f64) -> f64 {
+    let ml: f64 = l * 1000.00;
+    return ml;
+}
+fn ml2l(l: f64) -> f64 {
+    let ml: f64 = l / 1000.00;
+    return ml;
+}
+
+fn l2gal(l: f64) -> f64 {
+    let gal: f64 = l / 3.785;
+    return gal;
+}
+
+fn gal2l(gal: f64) -> f64 {
+    let l: f64 = gal * 3.785;
+    return l;
+}
+
 fn print_help() {
     println!(
         "
@@ -308,7 +328,90 @@ fn main() {
                             continue;
                         }
                     }
+                    ("l", "ml") => {
+                        if value >= 0.0 {
+                            let result = l2ml(value);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
+                        } else {
+                            println!("Volume cannot be negative");
+                            continue;
+                        }
+                    }
 
+                    ("ml", "l") => {
+                        if value >= 0.0 {
+                            let result = ml2l(value);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
+                        } else {
+                            println!("Volume cannot be negative");
+                            continue;
+                        }
+                    }
+                    ("l", "gal") => {
+                        if value >= 0.0 {
+                            let result = l2gal(value);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
+                        } else {
+                            println!("Volume cannot be negative");
+                            continue;
+                        }
+                    }
+
+                    ("gal", "l") => {
+                        if value >= 0.0 {
+                            let result = gal2l(value);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
+                        } else {
+                            println!("Volume cannot be negative");
+                            continue;
+                        }
+                    }
+
+                    ("ml", "gal") => {
+                        if value >= 0.0 {
+                            let l = ml2l(value);
+                            let result = l2gal(l);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
+                        } else {
+                            println!("Volume cannot be negative");
+                            continue;
+                        }
+                    }
+
+                    ("gal", "ml") => {
+                        if value >= 0.0 {
+                            let l = gal2l(value);
+                            let result = l2ml(l);
+                            if result != 0.0 && result.abs() < 0.01 {
+                                println!("{value} {from} = {result:.6} {to}");
+                            } else {
+                                println!("{value} {from} = {result:.2} {to}");
+                            }
+                        } else {
+                            println!("Volume cannot be negative");
+                            continue;
+                        }
+                    }
                     _ => println!("Conversion not supported"),
                 }
 
