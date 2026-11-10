@@ -95,6 +95,11 @@ SUPPORTED UNITS
     kg    - kilogram
     lb    - pound
 
+  Volume
+  ltr - litre
+  gal - gallon
+  ml - mili litre
+
 RULES
   - Units and commands are not case sensitive (KM = km)
   - Use the unit names exactly as listed above
@@ -328,7 +333,7 @@ fn main() {
                             continue;
                         }
                     }
-                    ("l", "ml") => {
+                    ("ltr", "ml") => {
                         if value >= 0.0 {
                             let result = l2ml(value);
                             if result != 0.0 && result.abs() < 0.01 {
@@ -342,7 +347,7 @@ fn main() {
                         }
                     }
 
-                    ("ml", "l") => {
+                    ("ml", "ltr") => {
                         if value >= 0.0 {
                             let result = ml2l(value);
                             if result != 0.0 && result.abs() < 0.01 {
@@ -355,7 +360,7 @@ fn main() {
                             continue;
                         }
                     }
-                    ("l", "gal") => {
+                    ("ltr", "gal") => {
                         if value >= 0.0 {
                             let result = l2gal(value);
                             if result != 0.0 && result.abs() < 0.01 {
@@ -369,7 +374,7 @@ fn main() {
                         }
                     }
 
-                    ("gal", "l") => {
+                    ("gal", "ltr") => {
                         if value >= 0.0 {
                             let result = gal2l(value);
                             if result != 0.0 && result.abs() < 0.01 {
