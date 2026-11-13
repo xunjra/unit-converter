@@ -68,7 +68,7 @@ Grab the file for your system from the [Releases page](https://github.com/xunjra
 
 | System | File |
 |---|---|
-| Windows (64-bit) | `Unit-Converter.exe` |
+| Windows (64-bit) | `unit-converter-windows-x86_64.exe` |
 
 No installation or dependencies needed. It is a single standalone file.
 
